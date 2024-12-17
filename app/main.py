@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routers import user
+from app.api.routes import user
 
 app = FastAPI(
     title="IELTS Test Management API",
