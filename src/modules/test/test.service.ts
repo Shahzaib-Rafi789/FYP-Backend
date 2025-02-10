@@ -6,12 +6,14 @@ import { CreateTestDto } from './dto/create-test.dto';
 import { AddTestDto } from './dto/add-test.dto';
 import { TestResponseDto } from './dto/test-response.dto';
 import { ModuleService } from '../module/module.service';
+import { LoggerService } from '../../common/utils/logger/logger.service';
 
 @Injectable()
 export class TestService {
   constructor(
     @InjectModel(Test.name) private testModel: Model<Test>,
     private readonly moduleService: ModuleService, // Service to handle modules
+    private readonly logger: LoggerService,
   ) {}
 
   async createTest(createTestDto: CreateTestDto): Promise<TestResponseDto> {
@@ -33,6 +35,8 @@ export class TestService {
 
     const createdTest = new this.testModel(addTestDto);
     const savedTest = await createdTest.save();
+
+    this.logger.log('New Test Created Successfully!!', 'TestService');
 
     return new TestResponseDto(savedTest);
   }

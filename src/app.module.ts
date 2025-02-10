@@ -8,9 +8,10 @@ import { QuestionGroupModule } from './modules/question-group/question-group.mod
 import { PartModule } from './modules/part/part.module';
 import { ModuleModule } from './modules/module/module.module';
 import { TestModule } from './modules/test/test.module';
+import { LoggerModule } from './common/utils/logger/logger.module';
 
 @Module({
-  imports: [DatabaseModule, UserModule, QuestionModule, QuestionGroupModule, PartModule, ModuleModule, TestModule],
+  imports: [DatabaseModule, LoggerModule, UserModule, QuestionModule, QuestionGroupModule, PartModule, ModuleModule, TestModule],
   controllers: [AppController],
   providers: [AppService],
 })
