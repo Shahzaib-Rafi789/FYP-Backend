@@ -8,10 +8,13 @@ import { QuestionResponseDto } from './dto/question-response.dto';
 @Injectable()
 export class QuestionService {
   constructor(
-    @InjectModel(Question.name) private readonly questionModel: Model<QuestionDocument>,
+    @InjectModel(Question.name)
+    private readonly questionModel: Model<QuestionDocument>,
   ) {}
 
-  async createQuestion(createQuestionDto: CreateQuestionDto): Promise<QuestionResponseDto> {
+  async createQuestion(
+    createQuestionDto: CreateQuestionDto,
+  ): Promise<QuestionResponseDto> {
     const createdQuestion = new this.questionModel(createQuestionDto);
     const savedQuestion = await createdQuestion.save();
     return new QuestionResponseDto(savedQuestion);
@@ -34,6 +37,4 @@ export class QuestionService {
     const result = await this.questionModel.deleteMany({});
     return { deletedCount: result.deletedCount };
   }
-  
 }
-

@@ -7,8 +7,12 @@ export class QuestionGroupController {
   constructor(private readonly questionGroupService: QuestionGroupService) {}
 
   @Post()
-  async createQuestionGroup(@Body() createQuestionGroupDto: CreateQuestionGroupDto) {
-    return this.questionGroupService.createQuestionGroup(createQuestionGroupDto);
+  async createQuestionGroup(
+    @Body() createQuestionGroupDto: CreateQuestionGroupDto,
+  ) {
+    return this.questionGroupService.createQuestionGroup(
+      createQuestionGroupDto,
+    );
   }
 
   @Get(':id')
@@ -25,5 +29,4 @@ export class QuestionGroupController {
   async deleteAllQuestionGroups(): Promise<{ deletedCount: number }> {
     return this.questionGroupService.deleteAllQuestionGroups();
   }
-
 }

@@ -6,8 +6,10 @@ import { Question, QuestionSchema } from './question.model';
 
 @Module({
   imports: [
-      MongooseModule.forFeature([{ name: Question.name, schema: QuestionSchema }]),
-    ],
+    MongooseModule.forFeature([
+      { name: Question.name, schema: QuestionSchema },
+    ]),
+  ],
   controllers: [QuestionController],
   providers: [QuestionService],
   exports: [QuestionService],

@@ -2,7 +2,6 @@ import * as winston from 'winston';
 import 'winston-daily-rotate-file';
 import 'winston-mongodb';
 
-
 // Define log format
 const logFormat = winston.format.combine(
   winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
@@ -17,10 +16,7 @@ export const winstonLogger = winston.createLogger({
   format: logFormat,
   transports: [
     new winston.transports.Console({
-      format: winston.format.combine(
-        winston.format.colorize(),
-        logFormat,
-      ),
+      format: winston.format.combine(winston.format.colorize(), logFormat),
     }),
     // new winston.transports.DailyRotateFile({
     //   dirname: 'logs',
@@ -30,12 +26,12 @@ export const winstonLogger = winston.createLogger({
     //   zippedArchive: true,
     // }),
     new winston.transports.MongoDB({
-        db: 'mongodb+srv://BandUp:iY3DaAQ504lErCbo@cluster0.fmlnz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', // Separate MongoDB for logs
-    //   options: { useUnifiedTopology: true },
-        collection: 'app_logs',
-        level: 'error', // Log only errors to MongoDB
-        capped: true, // Enables capped collection
-        cappedSize: 10485760, // 10MB max size
+      db: 'mongodb+srv://BandUp:iY3DaAQ504lErCbo@cluster0.fmlnz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', // Separate MongoDB for logs
+      //   options: { useUnifiedTopology: true },
+      collection: 'app_logs',
+      level: 'error', // Log only errors to MongoDB
+      capped: true, // Enables capped collection
+      cappedSize: 10485760, // 10MB max size
     }),
   ],
 });

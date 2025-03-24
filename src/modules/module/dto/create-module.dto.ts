@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsString, IsArray, ValidateNested, ArrayNotEmpty } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  IsArray,
+  ValidateNested,
+  ArrayNotEmpty,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { CreatePartDto } from '../../part/dto/create-part.dto';
 

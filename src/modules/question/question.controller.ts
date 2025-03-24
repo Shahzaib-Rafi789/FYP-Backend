@@ -20,5 +20,4 @@ export class QuestionController {
   async deleteAllQuestions(): Promise<{ deletedCount: number }> {
     return this.questionService.deleteAllQuestions();
   }
-
 }

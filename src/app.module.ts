@@ -10,11 +10,12 @@ import { ModuleModule } from './modules/module/module.module';
 import { TestModule } from './modules/test/test.module';
 import { LoggerModule } from './common/utils/logger/logger.module';
 import { ConfigModule } from '@nestjs/config';
+import { envSchema } from './config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      // validationSchema: configValidationSchema,
+      validationSchema: envSchema,
       envFilePath: `.env.${process.env.NODE_ENV}`,
       isGlobal: true,
     }),

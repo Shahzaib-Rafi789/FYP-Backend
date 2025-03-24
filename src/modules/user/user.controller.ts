@@ -14,7 +14,13 @@ export class UserController {
     @Body('firstName') firstName: string,
     @Body('lastName') lastName: string,
   ): Promise<User> {
-    return this.userService.createUser(email, password, username, firstName, lastName);
+    return this.userService.createUser(
+      email,
+      password,
+      username,
+      firstName,
+      lastName,
+    );
   }
 
   @Get()

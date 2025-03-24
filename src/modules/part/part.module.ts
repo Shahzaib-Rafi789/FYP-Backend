@@ -7,11 +7,11 @@ import { Part, PartSchema } from './part.model';
 
 @Module({
   imports: [
-          MongooseModule.forFeature([{ name: Part.name, schema: PartSchema }]),
-          QuestionGroupModule,
-        ],
+    MongooseModule.forFeature([{ name: Part.name, schema: PartSchema }]),
+    QuestionGroupModule,
+  ],
   providers: [PartService],
   controllers: [PartController],
-  exports: [PartService]
+  exports: [PartService],
 })
 export class PartModule {}
