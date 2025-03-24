@@ -9,9 +9,24 @@ import { PartModule } from './modules/part/part.module';
 import { ModuleModule } from './modules/module/module.module';
 import { TestModule } from './modules/test/test.module';
 import { LoggerModule } from './common/utils/logger/logger.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [DatabaseModule, LoggerModule, UserModule, QuestionModule, QuestionGroupModule, PartModule, ModuleModule, TestModule],
+  imports: [
+    ConfigModule.forRoot({
+      // validationSchema: configValidationSchema,
+      envFilePath: `.env.${process.env.NODE_ENV}`,
+      isGlobal: true,
+    }),
+    DatabaseModule,
+    LoggerModule,
+    UserModule,
+    QuestionModule,
+    QuestionGroupModule,
+    PartModule,
+    ModuleModule,
+    TestModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
