@@ -12,14 +12,14 @@ export class AppLogger implements LoggerService {
       level: 'info', // Default level (can be changed dynamically)
       format: winston.format.combine(
         winston.format.timestamp(),
-        winston.format.json()
+        winston.format.json(),
       ),
       transports: [
         // Console Logging
         new winston.transports.Console({
           format: winston.format.combine(
             winston.format.colorize(),
-            winston.format.simple()
+            winston.format.simple(),
           ),
         }),
 
@@ -31,10 +31,10 @@ export class AppLogger implements LoggerService {
         //   maxFiles: '14d', // Keep logs for 14 days
         // }),
 
-        // MongoDB Logging 
+        // MongoDB Logging
         new winston.transports.MongoDB({
           db: 'mongodb+srv://BandUp:iY3DaAQ504lErCbo@cluster0.fmlnz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', // Separate MongoDB for logs
-        //   options: { useUnifiedTopology: true },
+          //   options: { useUnifiedTopology: true },
           collection: 'app_logs',
           level: 'error', // Log only errors to MongoDB
           capped: true, // Enables capped collection

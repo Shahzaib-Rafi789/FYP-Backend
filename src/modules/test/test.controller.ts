@@ -9,7 +9,9 @@ export class TestController {
   constructor(private readonly testService: TestService) {}
 
   @Post()
-  async createTest(@Body() createTestDto: CreateTestDto): Promise<TestResponseDto> {
+  async createTest(
+    @Body() createTestDto: CreateTestDto,
+  ): Promise<TestResponseDto> {
     return this.testService.createTest(createTestDto);
   }
 

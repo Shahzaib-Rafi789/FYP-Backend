@@ -1,15 +1,16 @@
-import { Controller, Post, Get, Delete, Param, Body } from '@nestjs/common';
-import { ModuleService } from './module.service';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CreateModuleDto } from './dto/create-module.dto';
-import { AddModuleDto } from './dto/add-module.dto';
 import { ModuleResponseDto } from './dto/module-response.dto';
+import { ModuleService } from './module.service';
 
 @Controller('modules')
 export class ModuleController {
   constructor(private readonly moduleService: ModuleService) {}
 
   @Post()
-  async createModule(@Body() createModuleDto: CreateModuleDto): Promise<ModuleResponseDto> {
+  async createModule(
+    @Body() createModuleDto: CreateModuleDto,
+  ): Promise<ModuleResponseDto> {
     return this.moduleService.createModule(createModuleDto);
   }
 

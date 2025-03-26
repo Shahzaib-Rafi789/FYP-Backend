@@ -11,7 +11,7 @@ export class DatabaseService {
     try {
       const result = await this.connection.db.command({ ping: 1 });
       return result.ok === 1;
-    } catch (error) {
+    } catch {
       return false;
     }
   }
@@ -24,17 +24,15 @@ export class DatabaseService {
     return collections.map((col) => col.name);
   }
 
-  // Drop a specific collection
   async dropCollection(collectionName: string): Promise<boolean> {
     try {
       await this.connection.db.dropCollection(collectionName);
       return true;
-    } catch (error) {
+    } catch {
       return false;
     }
   }
 
-  // Example: Close the database connection
   async closeConnection(): Promise<void> {
     await this.connection.close();
   }

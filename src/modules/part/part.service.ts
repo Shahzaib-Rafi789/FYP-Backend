@@ -16,13 +16,14 @@ export class PartService {
 
   async createPart(createPartDto: CreatePartDto): Promise<PartResponseDto> {
     const questionGroupIds = [];
-  
+
     // Create question groups and collect their IDs
     for (const questionGroupDto of createPartDto.question_group) {
-      const createdGroup = await this.questionGroupService.createQuestionGroup(questionGroupDto);
+      const createdGroup =
+        await this.questionGroupService.createQuestionGroup(questionGroupDto);
       questionGroupIds.push(createdGroup.questionGroupId); // Use the Response DTO's `id` property
     }
-  
+
     // Construct the AddPartDto
     const addPartDto: AddPartDto = {
       module_type: createPartDto.module_type,
@@ -33,15 +34,14 @@ export class PartService {
       question_group: questionGroupIds, // Array of question group IDs
       total_marks: 0,
     };
-  
+
     // Save the part in the database
     const part = new this.partModel(addPartDto);
     const savedPart = await part.save();
-  
+
     // Format the saved part as a Response DTO
     return new PartResponseDto(savedPart);
   }
-  
 
   async getPartById(id: string): Promise<PartResponseDto> {
     const part = await this.partModel.findById(id).populate('question_group');
@@ -52,22 +52,18 @@ export class PartService {
   }
 
   async getAllParts(): Promise<PartResponseDto[]> {
-    const parts = await this.partModel
-      .find()
-      .populate({
-        path: 'question_group',
-        populate: {
-          path: 'questions', // Populate questions inside question_group
-        },
-      });
-  
+    const parts = await this.partModel.find().populate({
+      path: 'question_group',
+      populate: {
+        path: 'questions', // Populate questions inside question_group
+      },
+    });
+
     return parts.map((part) => new PartResponseDto(part));
   }
-  
 
   async deleteAllParts(): Promise<{ deletedCount: number }> {
     const result = await this.partModel.deleteMany({});
     return { deletedCount: result.deletedCount };
   }
-  
 }

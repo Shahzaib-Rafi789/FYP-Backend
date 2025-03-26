@@ -7,11 +7,13 @@ import { QuestionModule } from '../question/question.module';
 
 @Module({
   imports: [
-        MongooseModule.forFeature([{ name: QuestionGroup.name, schema: QuestionGroupSchema }]),
-        QuestionModule,
-      ],
+    MongooseModule.forFeature([
+      { name: QuestionGroup.name, schema: QuestionGroupSchema },
+    ]),
+    QuestionModule,
+  ],
   controllers: [QuestionGroupController],
   providers: [QuestionGroupService],
-  exports: [QuestionGroupService]
+  exports: [QuestionGroupService],
 })
 export class QuestionGroupModule {}

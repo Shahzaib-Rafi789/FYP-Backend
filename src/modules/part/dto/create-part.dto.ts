@@ -1,5 +1,11 @@
-import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
-import { CreateQuestionGroupDto } from '../../question-group/dto/create-question-group.dto'
+import {
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+import { CreateQuestionGroupDto } from '../../question-group/dto/create-question-group.dto';
 
 export class CreatePartDto {
   @IsNotEmpty()

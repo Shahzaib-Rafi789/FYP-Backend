@@ -1,4 +1,11 @@
-import { IsNotEmpty, IsString, IsBoolean, IsArray, ValidateNested, ArrayNotEmpty } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  IsBoolean,
+  IsArray,
+  ValidateNested,
+  ArrayNotEmpty,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { CreateModuleDto } from '../../module/dto/create-module.dto';
 

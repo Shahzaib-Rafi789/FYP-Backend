@@ -14,7 +14,9 @@ export class ModuleService {
     private readonly partService: PartService, // Service to handle parts
   ) {}
 
-  async createModule(createModuleDto: CreateModuleDto): Promise<ModuleResponseDto> {
+  async createModule(
+    createModuleDto: CreateModuleDto,
+  ): Promise<ModuleResponseDto> {
     const parts = [];
 
     // Create each part and collect its ID
@@ -36,15 +38,13 @@ export class ModuleService {
   }
 
   async getModuleById(moduleId: string): Promise<ModuleResponseDto> {
-    const module = await this.moduleModel
-      .findById(moduleId)
-      .populate({
-        path: 'parts',
-        populate: {
-          path: 'question_group',
-          populate: { path: 'questions' },
-        },
-      });
+    const module = await this.moduleModel.findById(moduleId).populate({
+      path: 'parts',
+      populate: {
+        path: 'question_group',
+        populate: { path: 'questions' },
+      },
+    });
 
     if (!module) {
       throw new Error(`Module with ID ${moduleId} not found.`);
@@ -58,20 +58,15 @@ export class ModuleService {
   }
 
   async getAllModules(): Promise<ModuleResponseDto[]> {
-    const modules = await this.moduleModel
-      .find()
-      .populate({
-        path: 'parts',
-        populate: {
-          path: 'question_group',
-          populate: { path: 'questions' },
-        },
-      });
+    const modules = await this.moduleModel.find().populate({
+      path: 'parts',
+      populate: {
+        path: 'question_group',
+        populate: { path: 'questions' },
+      },
+    });
 
-    return modules.map(
-      (module) =>
-        new ModuleResponseDto(module),
-    );
+    return modules.map((module) => new ModuleResponseDto(module));
   }
 
   async deleteAllModules(): Promise<void> {

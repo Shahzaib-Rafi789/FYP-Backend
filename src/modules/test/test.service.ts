@@ -42,18 +42,16 @@ export class TestService {
   }
 
   async getTestById(testId: string): Promise<TestResponseDto> {
-    const test = await this.testModel
-      .findById(testId)
-      .populate({
-        path: 'modules',
+    const test = await this.testModel.findById(testId).populate({
+      path: 'modules',
+      populate: {
+        path: 'parts',
         populate: {
-          path: 'parts',
-          populate: {
-            path: 'question_group',
-            populate: { path: 'questions' },
-          },
+          path: 'question_group',
+          populate: { path: 'questions' },
         },
-      });
+      },
+    });
 
     if (!test) {
       throw new Error(`Test with ID ${testId} not found.`);
@@ -69,18 +67,16 @@ export class TestService {
   }
 
   async getAllTests(): Promise<TestResponseDto[]> {
-    const tests = await this.testModel
-      .find()
-      .populate({
-        path: 'modules',
+    const tests = await this.testModel.find().populate({
+      path: 'modules',
+      populate: {
+        path: 'parts',
         populate: {
-          path: 'parts',
-          populate: {
-            path: 'question_group',
-            populate: { path: 'questions' },
-          },
+          path: 'question_group',
+          populate: { path: 'questions' },
         },
-      });
+      },
+    });
 
     return tests.map((test) => new TestResponseDto(test));
   }

@@ -29,6 +29,5 @@ export class CreateQuestionGroupDto {
   text: string;
 
   @IsArray()
-  questions: CreateQuestionDto[];// List of question IDs
+  questions: CreateQuestionDto[]; // List of question IDs
 }
-

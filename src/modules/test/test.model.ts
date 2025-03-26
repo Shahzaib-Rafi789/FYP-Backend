@@ -12,7 +12,9 @@ export class Test extends Document {
   @Prop({ required: true })
   test_owner: string; // e.g., "Platform" or a specific coach
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TestModule' }] })
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TestModule' }],
+  })
   modules: mongoose.Schema.Types.ObjectId[]; // References to Module documents
 }
 
