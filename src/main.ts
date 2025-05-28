@@ -24,6 +24,12 @@ async function bootstrap() {
   console.log(
     `🌍 Environment: ${NODE_ENV} ${process.env.NODE_ENV === undefined ? '(undefined)' : '(From env)'}`,
   );
+  console.log('Cloudinary config:', {
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+  
 }
 
 bootstrap();
