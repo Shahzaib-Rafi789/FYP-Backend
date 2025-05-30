@@ -1,13 +1,28 @@
-import { IsString, IsOptional, IsArray, IsNotEmpty } from 'class-validator';
+// import { IsString, IsOptional, IsArray, IsNotEmpty } from 'class-validator';
 
+// export class CreateQuestionDto {
+//   @IsString()
+//   statement: string; // Question text
+
+//   @IsArray()
+//   @IsOptional()
+//   options?: string[]; // Optional list of options for MCQ-type questions
+
+//   @IsNotEmpty()
+//   max_marks: number;
+// }
+
+// modules/question/dto/create-question.dto.ts
 export class CreateQuestionDto {
-  @IsString()
-  statement: string; // Question text
+  // type: string;          // 'mcq', 'writing', etc.
+  statement: string;
 
-  @IsArray()
-  @IsOptional()
-  options?: string[]; // Optional list of options for MCQ-type questions
+  // MCQ only
+  options?: string[];
+  correctAnswer?: string;
 
-  @IsNotEmpty()
-  max_marks: number;
+  // Writing only
+  resourceUrl?: string;
+  minimumWords?: number;
 }
+
