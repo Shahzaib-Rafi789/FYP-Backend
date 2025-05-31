@@ -18,7 +18,7 @@ export class PartService {
     const questionGroupIds = [];
 
     // Create question groups and collect their IDs
-    for (const questionGroupDto of createPartDto.question_group) {
+    for (const questionGroupDto of createPartDto.question_groups) {
       const createdGroup =
         await this.questionGroupService.createQuestionGroup(questionGroupDto);
       questionGroupIds.push(createdGroup.questionGroupId); // Use the Response DTO's `id` property
@@ -31,8 +31,8 @@ export class PartService {
       heading: createPartDto.heading,
       passage: createPartDto.passage,
       audio_link: createPartDto.audio_link,
-      question_group: questionGroupIds, // Array of question group IDs
-      total_marks: 0,
+      total_marks: createPartDto.total_marks,
+      question_groups: questionGroupIds, // Array of question group IDs
     };
 
     // Save the part in the database

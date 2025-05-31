@@ -21,14 +21,15 @@ export class Part {
   @Prop({ required: false })
   audio_link?: string;
 
+  @Prop({ required: true})
+  total_marks: number;
+  
   @Prop({
     required: true,
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'QuestionGroup' }],
   })
-  question_group: mongoose.Schema.Types.ObjectId[]; // Array of QuestionGroup IDs
+  question_groups: mongoose.Schema.Types.ObjectId[]; // Array of QuestionGroup IDs
 
-  @Prop({ default: 0 })
-  total_marks: number;
 }
 
 export const PartSchema = SchemaFactory.createForClass(Part);

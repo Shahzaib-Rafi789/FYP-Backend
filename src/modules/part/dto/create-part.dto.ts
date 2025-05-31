@@ -17,6 +17,10 @@ export class CreatePartDto {
   sequence: number;
 
   @IsNotEmpty()
+  @IsNumber()
+  total_marks: number;
+
+  @IsNotEmpty()
   @IsString()
   heading: string;
 
@@ -30,5 +34,5 @@ export class CreatePartDto {
 
   @IsArray()
   @IsNotEmpty({ each: true })
-  question_group: CreateQuestionGroupDto[]; // List of QuestionGroup IDs
+  question_groups: CreateQuestionGroupDto[]; // List of QuestionGroup IDs
 }

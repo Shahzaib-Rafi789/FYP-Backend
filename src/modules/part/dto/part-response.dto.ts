@@ -5,7 +5,7 @@ export class PartResponseDto {
   heading: string;
   passage?: string;
   audio_link?: string;
-  question_group: string[];
+  question_groups: string[];
   total_marks: number;
 
   constructor(part: any) {
@@ -15,7 +15,7 @@ export class PartResponseDto {
     this.heading = part.heading;
     this.passage = part.passage;
     this.audio_link = part.audio_link;
-    this.question_group = part.question_group;
+    this.question_groups = part.question_groups;
     this.total_marks = part.total_marks;
   }
 }

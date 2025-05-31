@@ -6,6 +6,6 @@ export class AddPartDto {
   heading: string;
   passage?: string;
   audio_link?: string;
-  question_group: mongoose.Schema.Types.ObjectId[];
+  question_groups: mongoose.Schema.Types.ObjectId[];
   total_marks: number;
 }
