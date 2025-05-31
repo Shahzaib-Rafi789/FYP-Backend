@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Test } from './test.model';
@@ -47,7 +47,7 @@ export class TestService {
       populate: {
         path: 'parts',
         populate: {
-          path: 'question_group',
+          path: 'question_groups',
           populate: { path: 'questions' },
         },
       },
@@ -57,13 +57,18 @@ export class TestService {
       throw new Error(`Test with ID ${testId} not found.`);
     }
 
-    return new TestResponseDto({
-      testId: test._id.toString(),
-      alias: test.alias,
-      isPublic: test.isPublic,
-      test_owner: test.test_owner,
-      modules: test.modules,
-    });
+    return new TestResponseDto(test);
+    // return new TestResponseDto({
+    //   testId: test._id.toString(),
+    //   alias: test.alias,
+    //   isPublic: test.isPublic,
+    //   test_owner: test.test_owner,
+    //   modules: test.modules,
+    // });
+  }
+
+  async deleteAllTests(): Promise<void> {
+    await this.testModel.deleteMany();
   }
 
   async getAllTests(): Promise<TestResponseDto[]> {
@@ -72,7 +77,7 @@ export class TestService {
       populate: {
         path: 'parts',
         populate: {
-          path: 'question_group',
+          path: 'question_groups',
           populate: { path: 'questions' },
         },
       },
@@ -81,7 +86,16 @@ export class TestService {
     return tests.map((test) => new TestResponseDto(test));
   }
 
-  async deleteAllTests(): Promise<void> {
-    await this.testModel.deleteMany();
+  async getRandomTest() {
+      const tests = await this.testModel.find({}, { _id: 1 }); // only fetch _id
+    if (tests.length === 0) {
+      throw new NotFoundException('No tests found.');
+    }
+
+    const randomIndex = Math.floor(Math.random() * tests.length);
+    // return tests[randomIndex]
+    const testId = tests[randomIndex]._id.toString();
+    return this.getTestById(testId);
   }
+  
 }

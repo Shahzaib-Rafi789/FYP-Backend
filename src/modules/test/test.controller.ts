@@ -14,7 +14,12 @@ export class TestController {
   ): Promise<TestResponseDto> {
     return this.testService.createTest(createTestDto);
   }
-
+  
+  @Get('random')
+  async getRandomTest(): Promise<TestResponseDto> {
+    return this.testService.getRandomTest();
+  }
+  
   @Get(':id')
   async getTestById(@Param('id') id: string): Promise<TestResponseDto> {
     return this.testService.getTestById(id);
@@ -29,4 +34,6 @@ export class TestController {
   async deleteAllTests(): Promise<void> {
     return this.testService.deleteAllTests();
   }
+
+  
 }

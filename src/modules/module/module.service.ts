@@ -41,7 +41,7 @@ export class ModuleService {
     const module = await this.moduleModel.findById(moduleId).populate({
       path: 'parts',
       populate: {
-        path: 'question_group',
+        path: 'question_groups',
         populate: { path: 'questions' },
       },
     });
@@ -61,7 +61,7 @@ export class ModuleService {
     const modules = await this.moduleModel.find().populate({
       path: 'parts',
       populate: {
-        path: 'question_group',
+        path: 'question_groups',
         populate: { path: 'questions' },
       },
     });

@@ -44,7 +44,7 @@ export class PartService {
   }
 
   async getPartById(id: string): Promise<PartResponseDto> {
-    const part = await this.partModel.findById(id).populate('question_group');
+    const part = await this.partModel.findById(id).populate('question_groups');
     if (!part) {
       throw new NotFoundException(`Part with ID ${id} not found.`);
     }
@@ -53,7 +53,7 @@ export class PartService {
 
   async getAllParts(): Promise<PartResponseDto[]> {
     const parts = await this.partModel.find().populate({
-      path: 'question_group',
+      path: 'question_groups',
       populate: {
         path: 'questions', // Populate questions inside question_group
       },
