@@ -24,8 +24,8 @@ export class QuestionGroup {
   @Prop({ required: false })
   group_options?: string[];
 
-  @Prop({ required: true })
-  text: string;
+  // @Prop({ required: true })
+  // text: string;
 
   // Update this to store only the references (IDs) of questions
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Question' }] })

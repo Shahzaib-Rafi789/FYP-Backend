@@ -16,6 +16,7 @@
 export class CreateQuestionDto {
   // type: string;          // 'mcq', 'writing', etc.
   statement: string;
+  max_marks: number;
 
   // MCQ only
   options?: string[];

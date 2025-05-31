@@ -1,4 +1,3 @@
-// modules/question/model/question.schema.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
@@ -11,6 +10,9 @@ export class Question {
 
   @Prop({ required: true })
   statement: string;
+
+  @Prop({ required: true })
+  max_marks: number;
 }
 
 export const QuestionSchema = SchemaFactory.createForClass(Question);

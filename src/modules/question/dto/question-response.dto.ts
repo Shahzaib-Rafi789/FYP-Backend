@@ -1,16 +1,16 @@
 export class QuestionResponseDto {
   questionId: string;
-  type: string;
+  questionType: string; // e.g., 'mcq', 'writing', etc.
   statement: string;
   options?: string[];
-  // max_marks: number;
+  max_marks: number;
   min_words?: number; // For writing questions
 
   constructor(question: any) {
     this.questionId = question._id.toString();
-    this.type = question.type;
+    this.questionType = question.questionType;
     this.statement = question.statement;
-    // this.max_marks = question.max_marks;
+    this.max_marks = question.max_marks;
 
     if (question.type === 'mcq') {
       this.options = question.options;

@@ -5,6 +5,7 @@ import { QuestionService } from './question.service';
 import { Question, QuestionSchema } from './question.model';
 import { MCQQuestionSchema } from './types/mcq-question.schema';
 import { WritingQuestionSchema } from './types/writing-question.schema';
+import { FillInBlankQuestionSchema } from './types/fillInBlank-question.schema';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { WritingQuestionSchema } from './types/writing-question.schema';
         useFactory: () => {
           const schema = QuestionSchema;
           schema.discriminator('mcq', MCQQuestionSchema);
-          schema.discriminator('writing-para', WritingQuestionSchema);
+          schema.discriminator('fillInBlank', FillInBlankQuestionSchema);
+          schema.discriminator('writingPara', WritingQuestionSchema);
           return schema;
         },
       },

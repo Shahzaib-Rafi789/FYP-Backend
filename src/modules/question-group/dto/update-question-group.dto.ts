@@ -23,9 +23,9 @@ export class UpdateQuestionGroupDto {
   @IsArray()
   group_options?: string[];
 
-  @IsOptional()
-  @IsString()
-  text?: string;
+  // @IsOptional()
+  // @IsString()
+  // text?: string;
 
   @IsOptional()
   @IsArray()

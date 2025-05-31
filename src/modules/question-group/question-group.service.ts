@@ -36,7 +36,7 @@ export class QuestionGroupService {
       instructions: createQuestionGroupDto.instructions,
       group_question: createQuestionGroupDto.group_question,
       group_options: createQuestionGroupDto.group_options,
-      text: createQuestionGroupDto.text,
+      // text: createQuestionGroupDto.text,
       questions, // Array of question IDs
     };
 

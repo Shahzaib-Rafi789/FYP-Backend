@@ -23,9 +23,9 @@ export class AddQuestionGroupDto {
   @IsArray()
   group_options?: string[];
 
-  @IsNotEmpty()
-  @IsString()
-  text: string;
+  // @IsNotEmpty()
+  // @IsString()
+  // text: string;
 
   @IsArray()
   @IsNotEmpty()

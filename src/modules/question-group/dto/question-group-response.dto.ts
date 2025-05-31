@@ -6,7 +6,7 @@ export class QuestionGroupResponseDto {
   instructions?: string;
   group_question?: string;
   group_options?: string[];
-  text: string;
+  // text: string;
   questions: string[];
 
   constructor(questionGroup: any) {
@@ -17,7 +17,7 @@ export class QuestionGroupResponseDto {
     this.instructions = questionGroup.instructions;
     this.group_question = questionGroup.group_question;
     this.group_options = questionGroup.group_options;
-    this.text = questionGroup.text;
+    // this.text = questionGroup.text;
     this.questions = questionGroup.questions;
   }
 }
