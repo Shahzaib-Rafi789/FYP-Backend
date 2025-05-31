@@ -12,6 +12,7 @@ import { LoggerModule } from './common/utils/logger/logger.module';
 import { ConfigModule } from '@nestjs/config';
 import { AudioModule } from './modules/audio/audio.module';
 import { envSchema } from './config';
+import { TestAttemptModule } from './modules/test-attempt/test-attempt.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { envSchema } from './config';
     ModuleModule,
     TestModule,
     AudioModule,
+    TestAttemptModule,
   ],
   controllers: [AppController],
   providers: [AppService],

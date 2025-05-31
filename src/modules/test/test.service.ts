@@ -95,6 +95,7 @@ export class TestService {
     const randomIndex = Math.floor(Math.random() * tests.length);
     // return tests[randomIndex]
     const testId = tests[randomIndex]._id.toString();
+    // return testId;
     return this.getTestById(testId);
   }
   

@@ -16,7 +16,7 @@ export class TestController {
   }
   
   @Get('random')
-  async getRandomTest(): Promise<TestResponseDto> {
+  async getRandomTest() {
     return this.testService.getRandomTest();
   }
   
