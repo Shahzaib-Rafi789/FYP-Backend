@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { TestAttempt } from './entities/test-attempt.entity';
@@ -34,7 +34,7 @@ export class TestAttemptService {
         testId: test.testId,
         userId: "", 
         modules: test.modules.map(module => ({
-          moduleName: module.name,
+          moduleName: module.module_type,
           status: 'pending',
           startedAt: null,
           completedAt: null
@@ -64,6 +64,116 @@ export class TestAttemptService {
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }
+  }
+
+  async getAttemptDetails(attemptId: string, userId: string, req: Request) {
+    try {
+      // 1. Find the attempt
+      const attempt = await this.attemptModel.findOne({
+        _id: attemptId,
+        // userId: userId
+      }).lean().exec();
+
+      if (!attempt) {
+        throw new NotFoundException({
+          status: false,
+          statusCode: 404,
+          path: req.url,
+          message: 'Test attempt not found',
+          result: {}
+        });
+      }
+
+      // 2. Get detailed test using existing service
+      const detailedTest = await this.testService.getTestById(attempt.testId.toString());
+
+      if (!detailedTest) {
+        throw new NotFoundException({
+          status: false,
+          statusCode: 404,
+          path: req.url,
+          message: 'Associated test not found',
+          result: {}
+        });
+      }
+
+      // 3. Combine the data
+      const result = {
+        ...attempt,
+        test: detailedTest
+      };
+
+      return {
+        status: true,
+        statusCode: 200,
+        path: req.url,
+        message: 'Test attempt fetched successfully',
+        result: result
+      };
+
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+      
+      throw new InternalServerErrorException({
+        status: false,
+        statusCode: 500,
+        path: req.url,
+        message: 'Internal server error',
+        result: {}
+      });
+    }
+  }
+
+  async getPaginatedAttempts(
+    page: number,
+    limit: number,
+    userId: string,
+    path: string
+  ) {
+    // 1. Query attempts with sorting
+    const attempts = await this.attemptModel
+      .find({ userId })
+      .sort({ startedAt: 1 }) // 1 = ascending (oldest first)
+      .exec();
+
+    // 2. Handle empty results
+    if (attempts.length === 0) {
+      return {
+        status: false,
+        statusCode: 200,
+        path,
+        message: 'No test attempts found for the user',
+        result: {
+          total: 0,
+          hasMore: false,
+          page: 0,
+          limit: 0,
+          attempts: []
+        }
+      };
+    }
+
+    // 3. Pagination logic
+    const startIndex = (page - 1) * limit;
+    const paginatedAttempts = attempts.slice(startIndex, startIndex + limit);
+    const hasMore = attempts.length > startIndex + limit;
+
+    // 4. Return formatted response
+    return {
+      status: true,
+      statusCode: 200,
+      path,
+      message: 'Test attempts fetched successfully',
+      result: {
+        total: attempts.length,
+        hasMore,
+        page,
+        limit,
+        attempts: paginatedAttempts
+      }
+    };
   }
 
   findAll() {
