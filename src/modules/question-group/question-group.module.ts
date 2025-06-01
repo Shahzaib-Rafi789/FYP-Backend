@@ -4,6 +4,7 @@ import { QuestionGroupService } from './question-group.service';
 import { QuestionGroupController } from './question-group.controller';
 import { QuestionGroup, QuestionGroupSchema } from './question-group.model';
 import { QuestionModule } from '../question/question.module';
+import { QuestionGroupEvaluator } from './question-group.evaluator';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { QuestionModule } from '../question/question.module';
     QuestionModule,
   ],
   controllers: [QuestionGroupController],
-  providers: [QuestionGroupService],
+  providers: [QuestionGroupService, QuestionGroupEvaluator],
   exports: [QuestionGroupService],
 })
 export class QuestionGroupModule {}

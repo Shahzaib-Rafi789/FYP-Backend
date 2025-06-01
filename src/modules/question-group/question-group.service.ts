@@ -7,6 +7,7 @@ import { QuestionGroupResponseDto } from './dto/question-group-response.dto';
 import { QuestionService } from '../question/question.service';
 import { CreateQuestionDto } from '../question/dto/create-question.dto';
 import { AddQuestionGroupDto } from './dto/add-question-group.dto';
+import { QuestionGroupEvaluator } from './question-group.evaluator';
 
 @Injectable()
 export class QuestionGroupService {
@@ -14,6 +15,7 @@ export class QuestionGroupService {
     @InjectModel(QuestionGroup.name)
     private readonly questionGroupModel: Model<QuestionGroupDocument>,
     private readonly questionService: QuestionService,
+    private readonly questionGroupEvaluator: QuestionGroupEvaluator
   ) {}
 
   async createQuestionGroup(
@@ -68,5 +70,11 @@ export class QuestionGroupService {
   async deleteAllQuestionGroups(): Promise<{ deletedCount: number }> {
     const result = await this.questionGroupModel.deleteMany({});
     return { deletedCount: result.deletedCount };
+  }
+
+  async evaluateQuestionGroupAnswers(questionGroup: any) {
+    const group = await this.getQuestionGroupById(questionGroup.questionGroupId);
+    questionGroup['total_marks'] = group.total_marks;
+    return this.questionGroupEvaluator.evaluateGroup(questionGroup);
   }
 }

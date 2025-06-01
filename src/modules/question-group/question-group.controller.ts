@@ -29,4 +29,9 @@ export class QuestionGroupController {
   async deleteAllQuestionGroups(): Promise<{ deletedCount: number }> {
     return this.questionGroupService.deleteAllQuestionGroups();
   }
+
+  @Post('evaluate')
+  async evaluateQuestionGroup(@Body() userResponse: any) {
+    return this.questionGroupService.evaluateQuestionGroupAnswers(userResponse);
+  }
 }

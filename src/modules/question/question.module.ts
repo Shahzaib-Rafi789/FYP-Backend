@@ -29,6 +29,6 @@ import { FillInBlankEvaluator } from './evaluators/fillInBlank.evaluator';
   ],
   controllers: [QuestionController],
   providers: [QuestionService, EvaluatorFactory, McqEvaluator, FillInBlankEvaluator],
-  exports: [QuestionService],
+  exports: [QuestionService, EvaluatorFactory],
 })
 export class QuestionModule {}
