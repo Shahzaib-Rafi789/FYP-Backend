@@ -6,12 +6,14 @@ import { CreatePartDto } from './dto/create-part.dto';
 import { AddPartDto } from './dto/add-part.dto';
 import { PartResponseDto } from './dto/part-response.dto';
 import { QuestionGroupService } from '../question-group/question-group.service';
+import { PartEvaluator } from './part.evaluator';
 
 @Injectable()
 export class PartService {
   constructor(
     @InjectModel(Part.name) private readonly partModel: Model<PartDocument>,
     private readonly questionGroupService: QuestionGroupService,
+    private readonly partEvaluator: PartEvaluator
   ) {}
 
   async createPart(createPartDto: CreatePartDto): Promise<PartResponseDto> {
@@ -65,5 +67,11 @@ export class PartService {
   async deleteAllParts(): Promise<{ deletedCount: number }> {
     const result = await this.partModel.deleteMany({});
     return { deletedCount: result.deletedCount };
+  }
+
+  async evaluatePartAnswers(part: any) {
+    const tempPart = await this.getPartById(part.partId);
+    part['total_marks'] = tempPart.total_marks;
+    return this.partEvaluator.evaluatePart(part);
   }
 }

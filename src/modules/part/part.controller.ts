@@ -28,4 +28,9 @@ export class PartController {
   async deleteAllParts(): Promise<{ deletedCount: number }> {
     return this.partService.deleteAllParts();
   }
+
+  @Post('evaluate')
+  async evaluatePart(@Body() userResponse: any) {
+    return this.partService.evaluatePartAnswers(userResponse);
+  }
 }

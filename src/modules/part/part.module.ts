@@ -4,13 +4,14 @@ import { PartService } from './part.service';
 import { PartController } from './part.controller';
 import { QuestionGroupModule } from '../question-group/question-group.module';
 import { Part, PartSchema } from './part.model';
+import { PartEvaluator } from './part.evaluator';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Part.name, schema: PartSchema }]),
     QuestionGroupModule,
   ],
-  providers: [PartService],
+  providers: [PartService, PartEvaluator],
   controllers: [PartController],
   exports: [PartService],
 })
