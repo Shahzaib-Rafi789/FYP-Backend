@@ -13,10 +13,9 @@ export class TestAttemptService {
     private readonly testService: TestService
   ) {}
 
-  async create(req: Request) {
+  async create(userId: string, req: Request) {
     try {
       console.log("Request:" ,req.body)
-      const userId = (req as any).body.auth;
 
       const existingAttempt = await this.attemptModel.findOne({
         userId,
