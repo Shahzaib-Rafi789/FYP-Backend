@@ -28,4 +28,9 @@ export class ModuleController {
   async deleteAllModules(): Promise<void> {
     return this.moduleService.deleteAllModules();
   }
+
+  @Post('evaluate')
+    async evaluateModule(@Body() userResponse: any) {
+      return this.moduleService.evaluateModuleAnswers(userResponse);
+    }
 }

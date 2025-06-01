@@ -6,12 +6,14 @@ import { CreateModuleDto } from './dto/create-module.dto';
 import { AddModuleDto } from './dto/add-module.dto';
 import { ModuleResponseDto } from './dto/module-response.dto';
 import { PartService } from '../part/part.service';
+import { ModuleEvaluator } from './module.evaluator';
 
 @Injectable()
 export class ModuleService {
   constructor(
     @InjectModel(TestModule.name) private moduleModel: Model<TestModule>,
     private readonly partService: PartService, // Service to handle parts
+    private readonly moduleEvaluator: ModuleEvaluator
   ) {}
 
   async createModule(
@@ -71,5 +73,11 @@ export class ModuleService {
 
   async deleteAllModules(): Promise<void> {
     await this.moduleModel.deleteMany();
+  }
+
+  async evaluateModuleAnswers(module: any) {
+    // const tempPar = await this.getModuleById(part.partId);
+    // part['total_marks'] = tempPart.total_marks;
+    return this.moduleEvaluator.evaluateModule(module);
   }
 }

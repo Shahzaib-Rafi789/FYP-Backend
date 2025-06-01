@@ -4,6 +4,7 @@ import { ModuleController } from './module.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PartModule } from '../part/part.module';
 import { TestModule, TestModuleSchema } from './module.model';
+import { ModuleEvaluator } from './module.evaluator';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { TestModule, TestModuleSchema } from './module.model';
     ]),
     PartModule,
   ],
-  providers: [ModuleService],
+  providers: [ModuleService, ModuleEvaluator],
   controllers: [ModuleController],
   exports: [ModuleService],
 })
