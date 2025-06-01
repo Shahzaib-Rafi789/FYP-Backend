@@ -6,6 +6,7 @@ import { Question, QuestionSchema } from './question.model';
 import { MCQQuestionSchema } from './types/mcq-question.schema';
 import { WritingQuestionSchema } from './types/writing-question.schema';
 import { FillInBlankQuestionSchema } from './types/fillInBlank-question.schema';
+import { SpeakingQuestionSchema } from './types/speaking-question.schema';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { FillInBlankQuestionSchema } from './types/fillInBlank-question.schema';
           const schema = QuestionSchema;
           schema.discriminator('mcq', MCQQuestionSchema);
           schema.discriminator('fillInBlank', FillInBlankQuestionSchema);
+          schema.discriminator('speaking-question', SpeakingQuestionSchema);
           schema.discriminator('writingPara', WritingQuestionSchema);
           return schema;
         },
