@@ -15,6 +15,24 @@ export class TestAttemptService {
 
   async create(req: Request) {
     try {
+      console.log("Request:" ,req.body)
+      const userId = (req as any).body.auth;
+
+      const existingAttempt = await this.attemptModel.findOne({
+        userId,
+        status: 'in_progress'
+      }).lean().exec();
+
+      if (existingAttempt) {
+        return {
+          status: true,
+          statusCode: HttpStatus.OK,
+          path: req.url,
+          message: 'Test already in progress. Resuming the test.',
+          result: existingAttempt
+        };
+      }
+
       const test = await this.testService.getRandomTest();
       
       if (!test) {
@@ -32,7 +50,7 @@ export class TestAttemptService {
 
       const newAttempt = new this.attemptModel({
         testId: test.testId,
-        userId: "", 
+        userId: userId, 
         modules: test.modules.map(module => ({
           moduleName: module.module_type,
           status: 'pending',
@@ -53,6 +71,7 @@ export class TestAttemptService {
         result: savedAttempt,
       };
     } catch (error) {
+      console.log(error)
       throw new HttpException(
         {
           status: false,
