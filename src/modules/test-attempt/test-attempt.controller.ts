@@ -22,8 +22,8 @@ export class TestAttemptController {
     @Res() res: Response
   ) {
     try {
-      // const userId = req.user.id; // From your auth middleware
-      const response = await this.testAttemptService.getAttemptDetails(attemptId, "userId", req);
+      const userId = (req as any).body.userId;
+      const response = await this.testAttemptService.getAttemptDetails(attemptId, userId, req);
       return res.status(response.statusCode).json(response);
     } catch (error) {
       return res.status(error.getStatus()).json(error.getResponse());
