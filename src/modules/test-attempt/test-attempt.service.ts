@@ -22,13 +22,16 @@ export class TestAttemptService {
         status: 'in_progress'
       }).lean().exec();
 
+      const result1 = existingAttempt; // Convert Mongoose doc to plain object
+      result1['attemptId'] = result1._id;  
+
       if (existingAttempt) {
         return {
           status: true,
           statusCode: HttpStatus.OK,
           path: req.url,
           message: 'Test already in progress. Resuming the test.',
-          result: existingAttempt
+          result: result1
         };
       }
 
@@ -61,13 +64,17 @@ export class TestAttemptService {
       });
 
       const savedAttempt = await newAttempt.save();
+      const result = savedAttempt.toObject(); // Convert Mongoose doc to plain object
+      result['attemptId'] = result._id;  
+      
+      console.log(result)
 
       return {
         status: true,
         statusCode: HttpStatus.CREATED,
         path: req.url,
         message: 'Test attempt started successfully.',
-        result: savedAttempt,
+        result: result,
       };
     } catch (error) {
       console.log(error)

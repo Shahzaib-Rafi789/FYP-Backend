@@ -10,7 +10,7 @@ export class TestAttemptController {
 
   @Post()
   async create(@Req() req: Request) {
-    const userId = (req as any).body.auth;
+    const userId = (req as any).body.userId;
     const result = await this.testAttemptService.create(userId, req);
     return result;
   }
