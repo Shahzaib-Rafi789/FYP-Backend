@@ -7,6 +7,9 @@ import { MCQQuestionSchema } from './types/mcq-question.schema';
 import { WritingQuestionSchema } from './types/writing-question.schema';
 import { FillInBlankQuestionSchema } from './types/fillInBlank-question.schema';
 import { SpeakingQuestionSchema } from './types/speaking-question.schema';
+import { EvaluatorFactory } from './evaluators';
+import { McqEvaluator } from './evaluators/mcq.evaluator';
+import { FillInBlankEvaluator } from './evaluators/fillInBlank.evaluator';
 
 @Module({
   imports: [
@@ -25,7 +28,7 @@ import { SpeakingQuestionSchema } from './types/speaking-question.schema';
     ]),
   ],
   controllers: [QuestionController],
-  providers: [QuestionService],
+  providers: [QuestionService, EvaluatorFactory, McqEvaluator, FillInBlankEvaluator],
   exports: [QuestionService],
 })
 export class QuestionModule {}

@@ -20,4 +20,9 @@ export class QuestionController {
   async deleteAllQuestions(): Promise<{ deletedCount: number }> {
     return this.questionService.deleteAllQuestions();
   }
+
+  @Post('evaluate')
+  async evaluateQuestion(@Body() userResponse: any) {
+    return this.questionService.evaluateAnswer(userResponse.questionId, userResponse.response);
+  }
 }

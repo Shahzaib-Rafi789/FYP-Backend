@@ -4,10 +4,10 @@ import { Question } from '../question.model';
 @Schema()
 export class WritingQuestion extends Question {
   @Prop()
-  resourceUrl?: string;
+  time_allowed: number;
 
   @Prop({ required: true })
-  minimumWords: number;
+  min_words: number;
 }
 
 export const WritingQuestionSchema = SchemaFactory.createForClass(WritingQuestion);
