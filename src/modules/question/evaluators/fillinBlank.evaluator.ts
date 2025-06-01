@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class FillInBlankEvaluator implements QuestionEvaluator {
-  evaluate(question: any, response: any): EvaluationResult {
+  async evaluate(question: any, response: any): Promise<EvaluationResult> {
     console.log(question)
     console.log(response)
     const isCorrect = question.correctAnswer.toLowerCase() === response.answer.toLowerCase().trim();

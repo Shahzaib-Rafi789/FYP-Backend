@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class McqEvaluator implements QuestionEvaluator {
-  evaluate(question: any, response: any): EvaluationResult {
+  async evaluate(question: any, response: any): Promise<EvaluationResult> {
     const isCorrect = question.correctAnswer === response.answer;
     return {
       marksObtained: isCorrect ? question.max_marks : 0,

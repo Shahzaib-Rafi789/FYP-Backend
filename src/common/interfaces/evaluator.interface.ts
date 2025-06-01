@@ -1,6 +1,6 @@
 
 export interface QuestionEvaluator {
-    evaluate(question: any, response: any): EvaluationResult;
+    evaluate(question: any, response: any): Promise<EvaluationResult>;
   }
    
   export interface EvaluationResult {

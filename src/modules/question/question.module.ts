@@ -10,9 +10,15 @@ import { SpeakingQuestionSchema } from './types/speaking-question.schema';
 import { EvaluatorFactory } from './evaluators';
 import { McqEvaluator } from './evaluators/mcq.evaluator';
 import { FillInBlankEvaluator } from './evaluators/fillInBlank.evaluator';
+import { AudioService } from '../audio/audio.service';
+import { SpeakingEvaluator } from './evaluators/speaking.evaluator';
+import { SpeechEvaluationModule } from 'src/common/ai/speech-evaluation.module';
+import { AudioModule } from '../audio/audio.module';
 
 @Module({
   imports: [
+    SpeechEvaluationModule,
+    AudioModule,
     MongooseModule.forFeatureAsync([
       {
         name: Question.name,
@@ -25,10 +31,10 @@ import { FillInBlankEvaluator } from './evaluators/fillInBlank.evaluator';
           return schema;
         },
       },
-    ]),
+    ])
   ],
   controllers: [QuestionController],
-  providers: [QuestionService, EvaluatorFactory, McqEvaluator, FillInBlankEvaluator],
+  providers: [QuestionService, EvaluatorFactory, McqEvaluator, FillInBlankEvaluator, SpeakingEvaluator],
   exports: [QuestionService, EvaluatorFactory],
 })
 export class QuestionModule {}

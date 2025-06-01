@@ -4,12 +4,14 @@ import { McqEvaluator } from './mcq.evaluator';
 import { FillInBlankEvaluator } from './fillInBlank.evaluator';
 // import { MatchingEvaluator } from './matching.evaluator';
 import { QuestionEvaluator } from '../../../common/interfaces/evaluator.interface';
+import { SpeakingEvaluator } from './speaking.evaluator';
 
 @Injectable()
 export class EvaluatorFactory {
   constructor(
     private readonly mcqEvaluator: McqEvaluator,
     private readonly fillInBlankEvaluator: FillInBlankEvaluator,
+    private readonly speakingQuestionEvaluator: SpeakingEvaluator
     // private readonly matchingEvaluator: MatchingEvaluator,
   ) {}
 
@@ -19,6 +21,8 @@ export class EvaluatorFactory {
         return this.mcqEvaluator;
       case 'fillInBlank':
         return this.fillInBlankEvaluator;
+      case 'speaking-question':
+        return this.speakingQuestionEvaluator
     //   case 'matching':
     //     return this.matchingEvaluator;
       default:

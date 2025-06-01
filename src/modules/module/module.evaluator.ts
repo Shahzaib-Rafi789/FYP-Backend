@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 // import { EvaluatorFactory } from '../question/evaluators';
 // import { QuestionEvaluator } from 'src/common/interfaces/evaluator.interface';
 import { PartService } from '../part/part.service';
+import { calculateBandScore } from '../../common/utils/index';
 
 @Injectable()
 export class ModuleEvaluator {
@@ -34,6 +35,7 @@ export class ModuleEvaluator {
       Obtained: Score,
       Total: totalScore,
       Percentage: Score/totalScore,
+      BandScore: calculateBandScore(Score/totalScore * 100),
       partResults,
     //   groupPassed: totalScore >= (Part.total_marks * 0.6) // Example 60% threshold
     };

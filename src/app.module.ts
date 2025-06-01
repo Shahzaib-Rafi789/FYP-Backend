@@ -13,6 +13,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AudioModule } from './modules/audio/audio.module';
 import { envSchema } from './config';
 import { TestAttemptModule } from './modules/test-attempt/test-attempt.module';
+import { SpeechEvaluationModule } from './common/ai/speech-evaluation.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { TestAttemptModule } from './modules/test-attempt/test-attempt.module';
     TestModule,
     AudioModule,
     TestAttemptModule,
+    SpeechEvaluationModule
   ],
   controllers: [AppController],
   providers: [AppService],
