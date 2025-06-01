@@ -23,15 +23,16 @@ export class TestAttemptService {
       }).lean().exec();
 
       const result1 = existingAttempt; // Convert Mongoose doc to plain object
-      result1['attemptId'] = result1._id;  
-
+      
       if (existingAttempt) {
+        result1['attemptId'] = result1._id;  
+        const test = (await this.getAttemptDetails(result1._id.toString(), userId, req)).result;
         return {
           status: true,
           statusCode: HttpStatus.OK,
           path: req.url,
           message: 'Test already in progress. Resuming the test.',
-          result: result1
+          result: test
         };
       }
 
@@ -64,10 +65,28 @@ export class TestAttemptService {
       });
 
       const savedAttempt = await newAttempt.save();
-      const result = savedAttempt.toObject(); // Convert Mongoose doc to plain object
-      result['attemptId'] = result._id;  
+      const result2 = savedAttempt.toObject(); // Convert Mongoose doc to plain object
+      result2['attemptId'] = result2._id;  
       
-      console.log(result)
+      console.log(result2)
+      // 2. Get detailed test using existing service
+      const detailedTest = await this.testService.getTestById(result2.testId.toString());
+
+      if (!detailedTest) {
+        throw new NotFoundException({
+          status: false,
+          statusCode: 404,
+          path: req.url,
+          message: 'Associated test not found',
+          result: {}
+        });
+      }
+
+      // 3. Combine the data
+      const result = {
+        ...result2,
+        test: detailedTest
+      };
 
       return {
         status: true,
